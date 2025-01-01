@@ -1,0 +1,34 @@
+class Solution {
+    public int incremovableSubarrayCount(int[] nums) {
+
+        int i, j, k, n = nums.length, count = 0;
+        for(i=0; i<n; i++) {
+            for(j=i; j<n; j++) {
+                int past = -1;
+                for(k=0; k<n; k++) {
+                    if(k>=i && k<=j) {
+                        continue;
+                    }
+
+                    if(past == -1) {
+                        past = nums[k];
+                        continue;
+                    }
+
+                    if(nums[k] <= past) {
+                        break;
+                    }
+
+                    past = nums[k];
+                }
+
+                if(k == n) {
+                    count++;
+                }
+            }
+            
+        }
+
+        return count;        
+    }
+}
