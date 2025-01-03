@@ -1,0 +1,55 @@
+class Solution {
+    public void floyd(long matrix[][]) {
+        for(int i=0; i<26; i++) {
+            for(int j=0; j<26; j++) {
+                if(i == j || matrix[j][i] == Integer.MAX_VALUE)
+                continue;
+                for(int k=0; k<26; k++) {
+                    if(matrix[i][k] == Integer.MAX_VALUE)
+                    continue;
+
+                    if(j != k)
+                    matrix[j][k] = Math.min(matrix[j][k], matrix[j][i] + matrix[i][k]);
+                }
+                
+            }
+        }
+    }
+
+    public long minimumCost(String source, String target, char[] original, char[] changed, int[] cost) {
+        long matrix[][] = new long[26][26];
+
+        for(int i=0; i<26; i++) {
+            for(int j=0; j<26; j++) {
+                if(i == j) {
+                    matrix[i][j] = 0;
+                    continue;
+                }
+                matrix[i][j] = Integer.MAX_VALUE;
+            }
+        }      
+
+        for(int i=0; i<original.length; i++) {
+            if(matrix[original[i] -'a'][changed[i] - 'a'] != Integer.MAX_VALUE)
+            matrix[original[i] -'a'][changed[i] - 'a'] = Math.min(matrix[original[i] -'a'][changed[i] - 'a'], cost[i]);
+            else
+            matrix[original[i] -'a'][changed[i] - 'a'] = cost[i];
+        }  
+
+        floyd(matrix); 
+
+        long totalcost = 0;
+        for(int i=0; i<source.length(); i++) {
+            if(source.charAt(i) == target.charAt(i))
+            continue;
+
+            long x = matrix[source.charAt(i) - 'a'][target.charAt(i) - 'a'];
+            if(x == Integer.MAX_VALUE)
+            return -1;
+            else
+            totalcost += x;
+        }
+
+        return totalcost;        
+    }
+}
