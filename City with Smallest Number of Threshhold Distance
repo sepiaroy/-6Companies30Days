@@ -1,0 +1,66 @@
+class Solution {
+    public void floyd(int matrix[][], int n) {
+        int x = Integer.MAX_VALUE;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                if(i == j || matrix[j][i] == x)
+                continue;
+                for(int k=0; k<n; k++) {
+                    if(matrix[i][k] == x)
+                    continue;
+
+                    if(j != k)
+                    matrix[j][k] = Math.min(matrix[j][k], matrix[j][i] + matrix[i][k]);
+                }
+                
+            }
+        }
+    }
+    
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+
+        int matrix[][] = new int[n][n];
+        int x = Integer.MAX_VALUE;
+
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                if(i == j) {
+                    matrix[i][j] = 0;
+                    continue;
+                }
+                matrix[i][j] = x;
+            }
+        } 
+
+        for(int[] edge : edges){
+            matrix[edge[0]][edge[1]] = edge[2];
+            matrix[edge[1]][edge[0]] = edge[2];
+        }
+
+        floyd(matrix, n);
+
+        int mincount = n, mincity = -1;
+        for(int i=0; i<n; i++) {
+            int count = 0;
+            for(int j=0; j<n; j++) {
+                if(matrix[i][j] == x)
+                continue;
+
+                if(matrix[i][j] <= distanceThreshold) {
+                    count++;
+                }
+
+                if(count > mincount) 
+                break;
+            }
+
+            if(count <= mincount) {
+                mincount = count;
+                mincity = i;
+            }
+        } 
+
+        return mincity;
+
+    }
+}
