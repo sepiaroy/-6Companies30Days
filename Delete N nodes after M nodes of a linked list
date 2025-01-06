@@ -1,0 +1,31 @@
+class Solution {
+    static void linkdelete(Node head, int n, int m) {
+        // your code here
+        if(head == null)
+        return;
+        
+        Node curr = head, last = null;
+        int i = 0, j = 0;
+        while(curr != null) {
+            if(last == null) {
+                i++;
+                if(i == m) {
+                    last = curr;
+                    curr = curr.next;
+                    last.next = null;
+                    continue;
+                }
+            } else {
+                j++;
+                if(j == n) {
+                    last.next = curr.next;
+                    i = 0;
+                    j = 0;
+                    last = null;
+                }
+            }
+            curr = curr.next;
+        }
+        
+    }
+}
