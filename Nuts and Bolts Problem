@@ -1,0 +1,45 @@
+class Solution {
+    void matchPairs(int n, char nuts[], char bolts[]) {
+        // code here
+        boolean map[] = new boolean[9];
+        for(int i=0; i<n; i++) {
+            if(nuts[i] == '!')
+            map[0] = true;
+            else if(nuts[i] == '#')
+            map[1] = true;
+            else if(nuts[i] == '$')
+            map[2] = true;
+            else if(nuts[i] == '%')
+            map[3] = true;
+            else if(nuts[i] == '&')
+            map[4] = true;
+            else if(nuts[i] == '*')
+            map[5] = true;
+            else if(nuts[i] == '?')
+            map[6] = true;
+            else if(nuts[i] == '@')
+            map[7] = true;
+            else if(nuts[i] == '^')
+            map[8] = true;
+        }
+        
+        int j = 0;
+        for(int i=0; i<9; i++) {
+            if(map[i] == true) {
+                char symbol = '\0';
+                if(i == 0) symbol = '!';
+                if(i == 1) symbol = '#';
+                if(i == 2) symbol = '$';
+                if(i == 3) symbol = '%';
+                if(i == 4) symbol = '&';
+                if(i == 5) symbol = '*';
+                if(i == 6) symbol = '?';
+                if(i == 7) symbol = '@';
+                if(i == 8) symbol = '^';
+                nuts[j] = symbol;
+                bolts[j] = symbol;
+                j++;
+            }
+        }
+    }
+}
