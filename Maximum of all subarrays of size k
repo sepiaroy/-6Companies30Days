@@ -1,0 +1,33 @@
+class Solution {
+    // Function to find maximum of each subarray of size k.
+    public int findmax(int arr[], int start, int last) {
+        int max = 0;
+        for(int i=start; i<=last; i++)
+            max = Math.max(arr[i], max);
+            
+        return max;
+    }
+    public ArrayList<Integer> max_of_subarrays(int arr[], int k) {
+        // Your code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        int start = 0, last = k, max = 0;
+        max = findmax(arr, 0, k-1);
+        
+        ans.add(max);
+        while(last < arr.length) {
+            if(arr[last] >= max)
+                max = arr[last];
+            else  {
+                if(arr[start] == max)
+                max = findmax(arr, start+1, last);
+            }
+            
+            ans.add(max);
+            start++;
+            last++;
+        }
+        
+        return ans;
+    }
+}
