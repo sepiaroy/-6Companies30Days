@@ -1,0 +1,23 @@
+class Solution {
+    // Function to find two elements in array
+    ArrayList<Integer> findTwoElement(int arr[]) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        int n = arr.length;
+        int map[] = new int[n+1];
+        for(int num : arr)
+            map[num]++;
+            
+        int repeat = -1, miss = -1;
+        for(int i=1; i<map.length; i++) {
+            if(map[i] == 2)
+            repeat = i;
+            
+            if(map[i] == 0)
+            miss = i;
+        }
+        
+        ans.add(repeat); ans.add(miss);
+        return ans;
+    }
+}
