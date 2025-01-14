@@ -1,0 +1,25 @@
+class Solution {
+    public int countDistinct(int[] nums, int k, int p) {
+        Set<ArrayList<Integer>> set = new HashSet<>();
+
+        int count = 0;
+        for(int i=0; i<nums.length; i++) {
+            int kcount = 0;
+            ArrayList<Integer> arr = new ArrayList<>();
+            for(int j=i; j<nums.length; j++) {
+                arr.add(nums[j]);
+                if(nums[j]%p == 0)
+                    kcount++;
+
+                if(kcount > k)
+                break;
+
+                if(!set.contains(arr)) {
+                    set.add(new ArrayList<>(arr));
+                }
+            }
+        }
+        
+        return set.size();
+    }
+}
