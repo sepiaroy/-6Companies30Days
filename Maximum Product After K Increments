@@ -1,0 +1,20 @@
+class Solution {
+    public int maximumProduct(int[] nums, int k) {
+        long pro = 1;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int n : nums)
+            pq.add(n);
+        
+        while(k > 0) {
+            int m = pq.poll();
+            m++;
+            pq.add(m);
+            k--;
+        }
+
+        while(!pq.isEmpty())
+            pro=(pro*pq.poll())%1000000007;
+
+        return (int)pro;
+    }
+}
