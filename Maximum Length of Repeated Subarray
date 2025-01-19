@@ -1,0 +1,35 @@
+class Solution {
+    int dp[][];
+    public int len(int i, int j, int[] nums1, int[] nums2) {
+
+        if(i>=nums1.length || j>=nums2.length || nums1[i] != nums2[j]) {
+            return 0;
+        }
+
+        if(dp[i][j] != -1)
+        return dp[i][j];
+
+        int length = 1 + len(i+1, j+1, nums1, nums2);
+        dp[i][j] = length;
+
+        return length;
+    }
+
+    public int findLength(int[] nums1, int[] nums2) {
+        int maxlen = 0;
+        dp = new int[nums1.length][nums2.length];
+        for(int i=0; i<dp.length; i++)
+            for(int j=0; j<dp[i].length; j++)
+                dp[i][j] = -1;
+
+        for(int i=0; i<nums1.length; i++) {
+            for(int j=0; j<nums2.length; j++) {
+                if(nums2[j] == nums1[i]) {
+                    maxlen = Math.max(maxlen, len(i, j, nums1, nums2));
+                }
+            }
+        }
+
+        return maxlen;        
+    }
+}
