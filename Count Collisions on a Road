@@ -1,0 +1,29 @@
+class Solution {
+    public int countCollisions(String directions) {
+        
+        int n = directions.length(), i = 0, right = 0, coll = 0;
+        int j = n-1;
+        
+        while (i < n && directions.charAt(i) == 'L') 
+            i++;
+        
+        while (j >= 0 && directions.charAt(j) == 'R') 
+            j--;
+
+        for ( ; i<=j; i++) {
+            if (directions.charAt(i) == 'R')  
+                right++;
+            else {
+                if(directions.charAt(i) == 'S') {
+                    coll += right;
+                } else {
+                    coll += (right + 1);
+                }
+                
+                right = 0;
+            }
+        }
+
+        return coll;
+    }
+}
