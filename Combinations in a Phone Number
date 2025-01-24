@@ -1,0 +1,39 @@
+class Solution {
+    public void combo(String digits, int j, List<String> ans, StringBuilder str, String arr[]) {
+
+        if(j ==  digits.length()) {
+            String s = new String(str);
+            ans.add(s);
+            return;
+        }
+
+        int n = digits.charAt(j) - '0';
+        for(int i=0; i<arr[n].length(); i++) {
+            str.append(arr[n].charAt(i));
+            combo(digits, j+1, ans, str, arr);
+            str.delete(str.length()-1, str.length());
+        }
+
+    }
+    public List<String> letterCombinations(String digits) {
+        ArrayList<String> ans = new ArrayList<>();
+        if(digits.length() == 0) {
+            return ans;
+        }
+
+        String arr[] = new String[10];
+        arr[2] = "abc";
+        arr[3] = "def";
+        arr[4] = "ghi";
+        arr[5] = "jkl";
+        arr[6] = "mno";
+        arr[7] = "pqrs";
+        arr[8] = "tuv";
+        arr[9] = "wxyz";
+
+        StringBuilder str = new StringBuilder();
+        combo(digits, 0, ans, str, arr);
+
+        return ans;
+    }
+}
